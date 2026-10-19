@@ -1,0 +1,54 @@
+Private artwork JPEG decoders
+
+TJpgDec R0.03, ChaN, 2021
+Source: https://elm-chan.org/fsw/tjpgd/arc/tjpgd3.zip
+Documentation: https://elm-chan.org/fsw/tjpgd/
+Downloaded archive SHA256:
+052fe3efbc9a8be29f31597ad009c5b51a4f6905878eb28569e0ab3d46d0c013
+The copyright and permissive redistribution notice remain in tjpgd/tjpgd.c.
+Configuration: RGB888, scaling enabled, FASTDECODE=1, table clipping enabled.
+Local header changes: fixed-width stdint types on Windows too, and private
+aurora_jd_prepare/aurora_jd_decomp names to avoid collision with LVGL's fork.
+No managed dependency is modified. LVGL's fork removes the scaling loops;
+enabling JD_USE_SCALE in that fork alone would produce incorrect pixels.
+The caller selects 1, 1/2, 1/4 or 1/8 with the shorter decoded edge >=312.
+
+stb_image v2.30, Sean Barrett and contributors
+Source: https://github.com/nothings/stb/blob/master/stb_image.h
+Unmodified downloaded header SHA256:
+594c2fe35d49488b4382dbfaec8f98366defca819d916ac95becf3e75f4200b3
+The complete dual MIT/public-domain license remains at the end of the header.
+Built privately in player_artwork_decode.cpp: JPEG only, no stdio/HDR/linear
+conversions/SIMD; unused public functions are static and discarded.
+Local changes to the header only add STBI_AURORA_CONTINUE cancellation/yield
+checks between JPEG MCU rows, progressive finalization rows, scans/headers,
+and output conversion rows. jpeg_finish returns status so cancellation
+unwinds through the existing cleanup. It does not change pixel algorithms.
+
+The JPEG fallback has 4096 maximum dimensions, 4,194,304 maximum pixels and
+13 MiB total live scratch-allocation budget (including allocation headers).
+The encoded image is separately bounded to 2 MiB; final RGB565 is 194688 B.
+On ESP32 scratch is explicitly allocated in PSRAM. A memory shortage rejects
+the candidate and allows another embedded/folder candidate, without restart.
+The peak is measured on host, not a prediction of device free heap.
+
+The real regression is a baseline JPEG with Y/Cb/Cr sampling all 0x12.
+TJpgDec and ESP-IDF 5.5.2 P4 hardware-JPEG parser reject this legal layout.
+stb handles it and progressive JPEG; no image conversion on SD is required.
+Synthetic JPEG fixtures reproduce the sampling layout independently.
+No user music/cover file is included in these sources or tests.
+
+Container limits: 1024 ID3 frames, 256 RIFF chunks/FLAC blocks, 32 ranked
+candidate descriptors, 4096-byte APIC/PIC metadata probe, 2 MiB encoded image.
+Ordinary ID3 tags can exceed 2 MiB because unrelated bytes are seeked over.
+Only global ID3v2.2/v2.3 unsynchronisation still reads a <=2 MiB whole tag.
+Compressed/encrypted ID3 frames and linked images are not fetched/decoded.
+WAV ID3 after a large data chunk is located by seek, never by reading audio.
+Native FLAC PICTURE is supported; MP4/M4A atoms are not parsed.
+
+Format references:
+https://id3.org/id3v2-00
+https://id3.org/id3v2.3.0
+https://id3.org/id3v2.4.0-frames
+https://id3.org/id3v2.4.0-structure
+https://www.rfc-editor.org/rfc/rfc9639.html#section-8.8

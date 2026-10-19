@@ -1,0 +1,13 @@
+/build/
+/managed_components/
+/sdkconfig
+/sdkconfig.old
+__pycache__/
+/build-calib/
+/build-host*/
+/build*/
+/firmware/
+/host-build*/
+*.exe
+*.pdb
+*.lib

@@ -1,0 +1,29 @@
+[
+  {
+    "source": "ui_shell.rgb565",
+    "packed": "ui_shell.pack",
+    "raw_bytes": 1843200,
+    "packed_bytes": 436761,
+    "format": "APK1",
+    "raw_sha256": "ea1588cd4eafcd92d8658173219451a95741b18592a6ea104bee82aacf9b8ccd",
+    "packed_sha256": "d327fca84ac377d2345122b9f1f14370badc9bb5a5916e4901cd1e5e29c537db"
+  },
+  {
+    "source": "aurora_controls.bin",
+    "packed": "aurora_controls.pack",
+    "raw_bytes": 1088192,
+    "packed_bytes": 270946,
+    "format": "APZ1",
+    "raw_sha256": "19992426ac3ef8f000aed6bd259d0fb7ce9ee442fb520c02a8cc69620e2834b5",
+    "packed_sha256": "198ffd0bf8fbdf6a2b448218b7bc1271ff85b8e5f2069a1f0f6c599f37b61d0e"
+  },
+  {
+    "source": "aurora_dragon.bin",
+    "packed": "aurora_dragon.pack",
+    "raw_bytes": 7920000,
+    "packed_bytes": 3149956,
+    "format": "APK1",
+    "raw_sha256": "823a09c8a32d295d0b23b522e43b1999cead4b8cd286535ba511e2cceae88626",
+    "packed_sha256": "b3d0ae8e66342f9103574f3e570eb5eb3b2a962296fd70db1fadda6e968ae558"
+  }
+]

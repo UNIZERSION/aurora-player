@@ -1,0 +1,16 @@
+# ESP-IDF 5.5.2 ships FatFS with FF_FS_EXFAT hard-coded to zero.
+# Extra components override built-in components, including public ff.h.
+set(_tab5_fatfs_source "$ENV{IDF_PATH}/components/fatfs")
+set(_tab5_fatfs_dir "${CMAKE_BINARY_DIR}/tab5_components/fatfs")
+if(NOT EXISTS "${_tab5_fatfs_source}/src/ffconf.h")
+    message(FATAL_ERROR "ESP-IDF missing. Activate ESP-IDF 5.5.2 before configuring.")
+endif()
+file(READ "${_tab5_fatfs_source}/src/ffconf.h" _tab5_ffconf)
+if(NOT _tab5_ffconf MATCHES "#define[ \t]+FF_FS_EXFAT[ \t]+0")
+    message(FATAL_ERROR "Unexpected SDK FatFS configuration. Use pristine ESP-IDF 5.5.2.")
+endif()
+file(COPY "${_tab5_fatfs_source}/" DESTINATION "${_tab5_fatfs_dir}")
+string(REGEX REPLACE "#define[ \t]+FF_FS_EXFAT[ \t]+0" "#define FF_FS_EXFAT 1" _tab5_ffconf "${_tab5_ffconf}")
+file(WRITE "${_tab5_fatfs_dir}/src/ffconf.h" "${_tab5_ffconf}")
+list(APPEND EXTRA_COMPONENT_DIRS "${_tab5_fatfs_dir}")
+message(STATUS "Tab5: exFAT enabled in isolated component ${_tab5_fatfs_dir}")

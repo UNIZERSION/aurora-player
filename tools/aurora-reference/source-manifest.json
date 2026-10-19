@@ -1,0 +1,36 @@
+{
+  "design": "approved Aurora HTML v1.5",
+  "firmware": "1.3.5",
+  "original_files_changed": false,
+  "physical_screen": [
+    1280,
+    720
+  ],
+  "adaptations_requested_by_user": [
+    "full screen without side bars; expand center panel without stretching artwork or circular controls",
+    "stronger text",
+    "balanced format badge and header; charging bolt right of battery; numeric level in settings",
+    "organized gear settings and touch scrollbars",
+    "larger smallest captions/icons; actual glyph centering; cover counter removed",
+    "hidden battery hold screenshot; music-reactive particles; folder shuffle; display sleep and performance fixes",
+    "Bluetooth icon color instead of text; Audio turntable speed settings; music-reactive peak markers/particles; flight wing-tip seam repair from IMG_5612/IMG_5611",
+    "IMG_5615 fixed wing hinge; IMG_5614 touch/list performance; software screensaver/wake; hardware power-off retry correction; smooth pulsing particles; IMG_5608 full keyboard placement",
+    "Phone-like black screen with backlight 0 and touch wake; cached folder rows and exact overwrite-aware framebuffer repair; three smoothly music-reactive particle ribbons"
+  ],
+  "sha256": {
+    "dragon.png": "325ea59d450695b8144712e9836ab89c3a7e023674c6d8de3010609aa93952a1",
+    "native-export.html": "ba3075b9c8cf87691ddecb635710e0127cd13279e0abb1c38ea17494f08ccc33",
+    "native-fields.json": "4adc2c852748d8d8b92b21f3984431b20861300ce01d92e038bea95def10255d",
+    "native-geometry.json": "aec826b123c6d835a727e0daeda71cc4cc73eb49dc450cccdc40b6561a943ead",
+    "native-off.png": "27083285062f5dae6745d20d7fdc0c59bc67a8a90ef677059970cf4416d68a52",
+    "native-on.png": "29a4b7079b5a2eadc8ee2ce1e002df96274827b058688d6f7d56583a7a23630e",
+    "native-pressed-on.png": "5fd045417cf6e6c036b833c7cc8f90f7407703756c871b1d4dd7ee750411cce4",
+    "native-pressed.png": "3decb26bb5c846b573d5eae60386c5861e6a5d0b05ce8f31d4e1e09eea4306e4",
+    "native-shell.png": "175de354dd41e012e548d14600684109b245b6265f08d8e9f0731cdc8a08a870",
+    "approved-html/dragon-renderer.js": "f42ea7c1391ae8bfa09f8ee4c4a2886ddba06a914f65e71a56f5c7940bc66010",
+    "approved-html/player.css": "c8610ff766fc9bf0f2244c43445ad33d352738da43b36e9ce9269f9e094aae4e",
+    "approved-html/player.js": "c4f85c6e05162118b24c4bb3e4ed02ad33d12cc25951e03100e5ec367d940264",
+    "approved-html/specyfikacja.html": "b6187886e72a9170612bf95ddea9683db15e8a75904599af5833cc4e11a53aa8",
+    "approved-html/tab5-player.html": "0ea8aa2431defd36c58980573d6ab3e47de6f06b4c2ab1a425d5d06bd06ffa4e"
+  }
+}

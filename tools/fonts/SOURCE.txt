@@ -1,0 +1,23 @@
+Montserrat-Medium.ttf is the original source used by LVGL 9.3.0 for its
+built-in lv_font_montserrat_* fonts (weight Medium, not Regular or Bold).
+
+Upstream pinned release:
+https://github.com/lvgl/lvgl/blob/v9.3.0/scripts/built_in_font/Montserrat-Medium.ttf
+SHA-256: 421f26b23e2be6b98373d32acd3cb2897b154d4bf0a77d26534ce476e4cbed53
+Copyright 2011 The Montserrat Project Authors
+https://github.com/JulietaUla/Montserrat
+License: SIL Open Font License 1.1; ../../licenses/Montserrat-OFL.txt.
+
+The generated UI fallback fonts contain U+00A0..U+017F at 14, 16, 18, 20,
+24 and 32 pixels, with four-bit antialiasing and no runtime decompression.
+Regenerate with ../generate_latin_fonts.py and lv_font_conv 1.5.3:
+https://github.com/lvgl/lv_font_conv
+
+ui_fonts.cpp copies the original LVGL descriptors and links the matching
+Latin fallback without changing the library's immutable font objects.
+ASCII glyphs, ASCII-pair kerning, and FontAwesome glyphs are unchanged.
+Kerning is available within each font subset; cross-subset pairs do not kern.
+Vertical line metrics include all accents and ogoneks. LVGL label heights
+must use the returned font's line_height (19/22/24/26/31/41 pixels).
+The bitmap fonts live in the firmware; no SD font files or dynamic TrueType
+rasterizer are needed. The original TTF is only a reproducible build input.

@@ -1,0 +1,62 @@
+source,start_ms,end_ms,expected,name
+tap-guided/all-boot0.csv,713300,714700,3,g1-1 3 taps natural (table)
+tap-guided/all-boot0.csv,719700,721100,3,g1-2 3 taps natural (table)
+tap-guided/all-boot0.csv,723700,724900,3,g1-3 3 taps fast (table)
+tap-guided/all-boot1.csv,64900,65800,2,g2-4 2 taps natural (table)
+tap-guided/all-boot1.csv,69000,69900,2,g2-5 2 taps natural (table)
+tap-guided/all-boot1.csv,72600,73600,2,g2-6 2 taps slow (table)
+tap-guided2/all-boot0.csv,80700,81900,3,g3-7 3 taps side (table)
+tap-guided2/all-boot0.csv,87400,89000,-1,g3-8 3 very light taps (0.15-0.2 g, unscored)
+tap-guided2/all-boot0.csv,184600,188300,0,between groups: handling 3.5 s tilt 14 deg
+tap-guided2/all-boot0.csv,221200,221500,0,g4-10 1 tap (table)
+tap-guided2/all-boot0.csv,228600,230100,0,g4-11 4 taps (table)
+tap-guided2/all-boot0.csv,281900,287100,0,g5-9a pick up into hand (tilt 80 deg)
+tap-guided2/all-boot0.csv,304800,306000,3,g5-9b 3 taps while held/lying
+tap-guided2/all-boot0.csv,309400,311800,0,g5-9c put back on stand
+tap-guided2/all-boot0.csv,315900,319800,0,g5-12 pick up and put down normally
+tap-guided2/all-boot0.csv,325100,326300,0,g5-13 put down harder
+tap-guided2/all-boot0.csv,376400,386300,0,g6-14 walking with it, put down
+tap-guided2/all-boot0.csv,392000,394300,0,g6 after walk: adjust (0.6 g then 5.1 g)
+tap-guided2/all-boot0.csv,401700,402600,0,g6 single strong bump 6.4 g
+tap-guided2/all-boot0.csv,408200,409800,0,g6-15 slide on table
+tap-guided2/all-boot0.csv,412900,413800,0,g6-16 3 taps on the table next to it (0.4-0.8 g)
+tap-guided2/all-boot0.csv,421925,556117,0,g7-17 loud music + handling to change volume (all negative)
+tap-guided2/all-boot0.csv,88800,105500,-1,g3 trial 8/9 mixture (ambiguous, unscored)
+tap-fifo/all-boot0-raw.csv,732000,733500,3,n1-a stand triple music
+tap-fifo/all-boot0-raw.csv,740300,741800,3,n1-b stand triple music
+tap-fifo/all-boot0-raw.csv,745500,746800,3,n1-c stand triple lighter music
+tap-fifo/all-boot0-raw.csv,808700,809600,2,n2-a stand double paused
+tap-fifo/all-boot0-raw.csv,812900,813800,2,n2-b stand double paused
+tap-fifo/all-boot0-raw.csv,816400,817300,2,n2-c stand double paused
+tap-fifo/all-boot0-raw.csv,666500,668500,0,n1 single bump
+tap-fifo/all-boot0-raw.csv,683000,688500,0,n1 placing on stand + screen touches
+tap-fifo/all-boot0-raw.csv,796500,800000,0,n2 screen touches to pause music
+tap-fifo/all-boot0-raw.csv,871800,872900,0,n3 TABLE triple 10-15 cm a
+tap-fifo/all-boot0-raw.csv,877000,878000,0,n3 TABLE triple 10-15 cm b
+tap-fifo/all-boot0-raw.csv,881100,882100,0,n3 TABLE triple 10-15 cm c
+tap-fifo/all-boot0-raw.csv,887200,888000,0,n3 TABLE double hard 5 cm a
+tap-fifo/all-boot0-raw.csv,890600,891500,0,n3 TABLE double hard 5 cm b
+tap-fifo/all-boot0-raw.csv,893800,894700,0,n3 TABLE double hard 5 cm c
+tap-fifo/all-boot0-raw.csv,902200,903500,0,n3 object put down on table
+tap-fifo/all-boot0-raw.csv,940000,996000,0,n4 handling: pick up + volume x3, adjust x2
+tap-fifo/all-boot0-raw.csv,1049500,1182440,0,n5 pocket/bag walking unplugged (JTAG backlog)
+tap-fifo/all-boot1-raw.csv,131000,134500,0,n6 two single strong taps
+tap-fifo/all-boot1-raw.csv,138600,139800,3,n6-a light triple side Y
+tap-fifo/all-boot1-raw.csv,144100,145300,3,n6-b light triple side Y
+tap-fifo/all-boot1-raw.csv,149300,150400,3,n6-c light triple edge X
+tap-fifo/all-boot1-raw.csv,155800,156900,3,n6-d light triple top Z
+tap-fifo/all-boot1-raw.csv,159200,159900,2,n6-e light double
+tap-fifo/all-boot1-raw.csv,162500,163700,0,n6 single tap with pre-touch
+tap-fifo/all-boot1-raw.csv,164700,167900,0,n6 4 taps while handling (asked 4-tap)
+tap-fifo/all-boot1-raw.csv,168100,168900,-1,n6 two taps after handling (intent unclear: asked single)
+tap-fifo/all-boot1-raw.csv,172000,173100,3,n6-f triple normal
+tap-fifo/all-boot1-raw.csv,268600,269500,2,n7-a double
+tap-fifo/all-boot1-raw.csv,283000,284200,3,n7-b triple
+tap-fifo/all-boot1-raw.csv,295700,296500,2,n7-c double
+tap-fifo/all-boot1-raw.csv,307700,308900,3,n7-d triple
+tap-stream/session-7.csv,348200,349000,-1,s7 strong triple right after arming (unscored)
+tap-stream/session-7.csv,352000,352700,2,s7 double
+tap-stream/session-7.csv,355900,356700,2,s7 double
+tap-stream/session-7.csv,358800,359700,3,s7 side triple
+tap-stream/session-7.csv,361000,374500,0,s7 handling
+tap-stream/session-7.csv,375300,386600,-1,s7 taps while handled or held, tilted 40 deg (unscored)

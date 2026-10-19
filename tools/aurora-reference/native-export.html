@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head><base href="http://127.0.0.1:8765/">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Aurora Player · v1.5 · Interactive prototype</title>
+  <link rel="stylesheet" href="player.css">
+  
+  
+  
+<style>
+html,body{width:1280px;height:720px;overflow:hidden;background:#101114}
+#viewport{padding:0;display:block;width:1280px;height:720px;min-height:0}
+#stage{position:absolute;left:25.6px;top:0;width:1228.8px;height:720px}
+#device{transform:scale(1.2);box-shadow:none}
+#clock,#battery-status,#bt-label,#track-counter,#file-format,#file-quality,#play-led,#play-state,#quality-mini,#song-title,#artist,#album,#visualizer,#viz-caption,#elapsed,#duration,#seek,#volume,#volume-value,#track-list,.list-meta,.queue-foot,.dragon-emblem,.footer-version{visibility:hidden}
+#volume-knob i{visibility:hidden}
+body[data-mode="shell"] button{visibility:hidden}
+*{animation:none!important;transition:none!important}
+
+/* Physical Tab5 screen: grow the center panel, preserve circular controls. */
+#stage{left:0;width:1280px}
+#device{width:1066.666667px}
+.main-panels{grid-template-columns:276px 408.666667px 322px}
+.bottom-panel{grid-template-columns:276px 300px 234px 166.666667px}
+.control-heading{font-size:12px;font-weight:700;letter-spacing:.4px}
+.control-heading small{font-size:10px;font-weight:700;letter-spacing:.2px}
+.tabs button{font-size:14px;font-weight:700}
+.fx-button span,.format-buttons button{font-weight:700}
+.footer-motto{font-size:9px;font-weight:700;letter-spacing:.3px}
+.footer-brand{font-size:13px}
+.format-note{font-size:11px;font-weight:700}
+.demo-mark{font-weight:700}
+#bluetooth{visibility:hidden}
+body.press-export button{transform:translateY(1px);filter:brightness(1.25)}
+.button-bank small{font-size:10px;font-weight:700}.format-bank button{font-size:12px;font-weight:700}.button-bank .icon{width:25px;height:25px}
+</style></head>
+<body>
+<main id="viewport" aria-label="Tab5 player prototype">
+ <div id="stage">
+  <section id="device" aria-label="Player — silent UI demonstration">
+   <i class="screw s1" aria-hidden="true"></i><i class="screw s2" aria-hidden="true"></i><i class="screw s3" aria-hidden="true"></i><i class="screw s4" aria-hidden="true"></i>
+   <header class="hardware-header">
+    <div class="brand"><svg viewBox="0 0 48 40" aria-hidden="true"><path d="M24 2 46 13 24 24 2 13 24 2Zm-22 11v14l22 11 22-11V13M24 24v14M13 13l11-6 11 6-11 6Z"/></svg><div><b>M5STACK</b><strong>TAB5</strong></div><span>PORTABLE<br>AUDIO PLAYER</span></div>
+    <div class="vent" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="demo-mark"><span></span> DEMO UI</div>
+    <div class="status-pod"><time id="clock">14:28</time><button id="bluetooth" class="bt-button" aria-label="Bluetooth — off" aria-haspopup="dialog"><span data-icon="bluetooth"></span><span id="bt-label">BT OFF</span></button><span id="battery-status" class="battery" role="img" aria-label="Demo battery: 78 percent, charging"><span data-icon="battery"></span><span id="charging-indicator" class="charging-indicator" data-icon="charging" aria-hidden="true"></span><span id="battery-level">78%</span></span></div>
+   </header>
+   <div class="main-panels">
+    <section class="panel artwork-panel" aria-label="Cover and file details">
+     <div class="cover-frame"><div id="cover" class="cover"></div><span id="track-counter" class="cover-counter">01 / 06</span><i class="cover-pin p1"></i><i class="cover-pin p2"></i><i class="cover-pin p3"></i><i class="cover-pin p4"></i></div>
+     <div class="file-info"><strong id="file-format">MP3</strong><span class="dragon-emblem" aria-hidden="true"><canvas id="dragon-canvas" width="220" height="208" hidden></canvas><img id="dragon-fallback" class="dragon-sprite" src="assets/dragon.png" alt="" draggable="false" width="110" height="104"></span><span id="file-quality">44.1 kHz<br>320 kbps</span></div>
+    </section>
+    <section class="panel now-panel" aria-label="Now playing">
+     <div class="now-top"><span><i id="play-led"></i><span id="play-state">READY</span></span><span id="quality-mini">MP3 · 320 kbps</span></div>
+     <h1 id="song-title">Aurora Protocol</h1>
+     <div class="song-details"><div><p id="artist">Hikari Collective</p><p id="album">Neon Tides</p></div><button id="favorite" class="icon-button" aria-label="Add to favorites" aria-pressed="false"><span data-icon="heart"></span></button></div>
+     <div class="visual-wrap"><canvas id="visualizer" width="668" height="184" role="img" aria-label="Demo spectrum visualization"></canvas><span id="viz-caption">SPECTRUM / PAUSED</span></div>
+     <div class="seek-row"><span id="elapsed">02:17</span><input id="seek" type="range" min="0" max="276" step="1" value="137" aria-label="Track position"><span id="duration">04:36</span></div>
+     <div class="transport"><button id="shuffle" class="icon-button" aria-label="Shuffle playback" aria-pressed="false"><span data-icon="shuffle"></span></button><button id="previous" class="round-button" aria-label="Previous track"><span data-icon="previous"></span></button><button id="play" class="play-button" aria-label="Play demo"><span data-icon="play"></span></button><button id="next" class="round-button" aria-label="Next track"><span data-icon="next"></span></button><button id="repeat" class="icon-button" aria-label="Repeat: off" aria-pressed="false"><span data-icon="repeat"></span><small id="repeat-one" hidden>1</small></button></div>
+    </section>
+    <section class="panel playlist-panel" aria-label="Library and playlist">
+     <div class="tabs" role="tablist" aria-label="Library view"><button role="tab" data-tab="queue" aria-selected="true" aria-controls="track-list">Queue</button><button role="tab" data-tab="local" aria-selected="false" aria-controls="track-list">Files</button><button role="tab" data-tab="favorites" aria-selected="false" aria-controls="track-list" aria-label="Favorites"><span data-icon="heart"></span></button><button role="tab" data-tab="settings" aria-selected="false" aria-controls="settings-panel" aria-label="Settings"><span data-icon="settings"></span></button></div>
+     <div class="list-meta"><span id="list-label">NEON COLLECTION</span><span id="list-count">6 TRACKS</span></div>
+     <div id="track-list" role="tabpanel" aria-label="Queue" tabindex="0"></div>
+     <div id="settings-panel" class="settings-panel" role="tabpanel" aria-label="Settings" hidden>
+      <div class="settings-heading">DRAGON ANIMATION</div>
+      <div class="dragon-type" role="group" aria-label="Dragon animation type"><button data-dragon-type="living" aria-pressed="false">Living dragon</button><button data-dragon-type="flight" aria-pressed="true">Flight</button></div>
+      <div class="brightness-control dragon-speed-control"><label for="dragon-speed">Speed <output id="dragon-speed-value" for="dragon-speed">1×</output></label><input id="dragon-speed" type="range" min="0.4" max="1.6" step="0.1" value="1" aria-label="Dragon animation speed"></div>
+      <div class="setting-row"><span>Shifting colors</span><button id="dragon-colors" class="setting-switch" role="switch" aria-label="Shifting dragon colors" aria-checked="true">ON</button></div>
+      <p id="dragon-render-note" class="settings-note" hidden>Static preview. Reload to retry the animation; WebGL is required.</p>
+      <div class="settings-heading screen-settings-heading">DISPLAY AND CLOCK</div>
+      <div class="brightness-control"><label for="brightness">Screen brightness <output id="brightness-value" for="brightness">100%</output></label><input id="brightness" type="range" min="20" max="100" step="5" value="100" aria-label="Screen brightness"></div>
+      <div class="setting-row"><span>Interface animations</span><button id="animations-toggle" class="setting-switch" role="switch" aria-label="Interface animations" aria-checked="true">ON</button></div>
+      <div class="setting-row"><span>Clock format</span><button id="clock-format" class="setting-switch" aria-label="24-hour clock" aria-pressed="true">24 h</button></div>
+      <button id="settings-reset" class="settings-reset">Reset settings</button>
+      <p class="settings-note">Brightness affects the demo preview.</p>
+     </div>
+     <div class="queue-foot"><span id="queue-status">SD CARD · DEMO</span><span id="queue-duration">24:28</span></div>
+    </section>
+   </div>
+   <div class="bottom-panel">
+    <section class="volume-section" aria-label="Volume"><div class="knob" id="volume-knob" role="slider" tabindex="0" aria-label="Volume knob" aria-valuemin="0" aria-valuemax="100" aria-valuenow="65" title="Drag up or down; tap to set"><div><i></i></div></div><div class="volume-controls"><div class="control-heading"><span>VOLUME</span><strong id="volume-value">65%</strong></div><div class="volume-line"><button id="mute" class="icon-button" aria-label="Mute" aria-pressed="false"><span data-icon="volume"></span></button><input id="volume" type="range" min="0" max="100" value="65" aria-label="Volume"></div></div></section>
+    <section class="fx-section" aria-label="Visual effect preset"><div class="control-heading">FX PRESET <small>VISUAL DEMO</small></div><div class="button-bank" id="fx-bank"><button data-fx="normal" aria-pressed="true"><span data-icon="bars"></span><small>NORMAL</small></button><button data-fx="bass" aria-pressed="false"><span data-icon="bass"></span><small>BASS+</small></button><button data-fx="space" aria-pressed="false"><span data-icon="orbit"></span><small>SPACE</small></button><button data-fx="retro" aria-pressed="false"><span data-icon="tape"></span><small>RETRO</small></button></div></section>
+    <section class="format-section" aria-label="File format filter"><div class="control-heading">FILE FILTER <small>PLAYLIST</small></div><div class="button-bank format-bank"><button data-filter="all" aria-pressed="true">ALL</button><button data-filter="MP3" aria-pressed="false">MP3</button><button data-filter="WAV" aria-pressed="false">WAV</button></div><span class="format-note">Source file format</span></section>
+    <section class="viz-section" aria-label="Visualization mode"><div class="control-heading">VISUALIZER</div><div class="button-bank viz-bank"><button data-viz="spectrum" aria-label="Spectrum" aria-pressed="true"><span data-icon="bars"></span></button><button data-viz="wave" aria-label="Wave" aria-pressed="false"><span data-icon="wave"></span></button><button data-viz="particles" aria-label="Particles" aria-pressed="false"><span data-icon="dots"></span></button></div></section>
+   </div>
+   <footer class="device-footer"><span class="footer-motto">Every second of your life is a part of your song</span><span class="footer-brand">AURORA PLAYER</span><span class="footer-version">v1.3.0</span></footer>
+   <div id="toast" role="status" aria-live="polite"></div>
+   <dialog id="bt-dialog" aria-labelledby="bt-title"><div class="dialog-head"><div><span class="eyebrow">CONNECTIVITY · DEMO UI</span><h2 id="bt-title">Bluetooth</h2></div><button id="bt-close" class="icon-button" aria-label="Close Bluetooth"><span data-icon="close"></span></button></div><p class="dialog-copy">Simulated connections. No device scanning or audio streaming.</p><div class="bt-status-line"><span id="bt-dot"></span><strong id="bt-status">Off</strong><button id="bt-power">Turn on</button></div><div id="bt-devices"></div><p class="bt-footnote">Devices and results are examples.</p></dialog>
+   <div id="screen-dimmer" aria-hidden="true"></div>
+  </section>
+ </div>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const icons={
+ settings:'<path d="m9.5 3-.6 2.4-1.6.9L5 5.6 2.5 9.9l1.8 1.7v1.8l-1.8 1.7L5 19.4l2.3-.7 1.6.9.6 2.4h5l.6-2.4 1.6-.9 2.3.7 2.5-4.3-1.8-1.7v-1.8l1.8-1.7L19 5.6l-2.3.7-1.6-.9-.6-2.4Z"/><circle cx="12" cy="12.5" r="3.3"/>',
+ charging:'<path d="m14 5-8 9h6l-2 5 8-9h-6l2-5Z"/>',
+ play:'<path d="m8 5 12 7-12 7Z"/>',pause:'<rect x="6" y="4" width="4" height="16" rx="1"/><rect x="15" y="4" width="4" height="16" rx="1"/>',
+ previous:'<path d="M5 5v14M19 5 7 12l12 7Z"/>',next:'<path d="M19 5v14M5 5l12 7-12 7Z"/>',
+ heart:'<path d="M20.6 4.7a5.4 5.4 0 0 0-7.6 0L12 5.8l-1.1-1.1a5.4 5.4 0 0 0-7.6 7.6L12 21l8.6-8.7a5.4 5.4 0 0 0 0-7.6Z"/>',
+ shuffle:'<path d="M3 6h3c5 0 7 12 12 12h3M17 14l4 4-4 4M3 18h3c2 0 4-3 5-6s4-6 7-6h3M17 2l4 4-4 4"/>',repeat:'<path d="m17 2 4 4-4 4M3 11V9a3 3 0 0 1 3-3h15M7 22l-4-4 4-4m14-1v2a3 3 0 0 1-3 3H3"/>',
+ bluetooth:'<path d="m7 7 10 10-5 5V2l5 5L7 17"/>',battery:'<rect x="2" y="6" width="18" height="12" rx="2"/><path d="M23 10v4"/><path d="M5 9h11v6H5Z" fill="currentColor" stroke="none"/>',
+ volume:'<path d="M3 9h4l5-4v14l-5-4H3ZM16 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/>',muted:'<path d="M3 9h4l5-4v14l-5-4H3Zm13 0 6 6m0-6-6 6"/>',
+ bars:'<path d="M4 15v5M9 9v11m6-17v17m5-10v10" stroke-width="3"/>',bass:'<path d="M4 4v16m5-13v13m6-8v8m5-5v5" stroke-width="3"/>',orbit:'<ellipse cx="12" cy="12" rx="11" ry="4" transform="rotate(-30 12 12)"/><ellipse cx="12" cy="12" rx="6" ry="10" transform="rotate(25 12 12)"/>',tape:'<rect x="2" y="5" width="20" height="15" rx="2"/><circle cx="7" cy="11" r="2"/><circle cx="17" cy="11" r="2"/><path d="m6 20 2-4h8l2 4M10 11h4"/>',wave:'<path d="M2 13c4-14 6-14 10 0s6 14 10 0"/>',dots:'<path d="M5 5h.01M12 5h.01M19 5h.01M5 12h.01M12 12h.01M19 12h.01M5 19h.01M12 19h.01M19 19h.01" stroke-width="3"/>',disc:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2"/><path d="M12 6a6 6 0 0 1 6 6"/>',close:'<path d="m6 6 12 12M6 18 18 6"/>',check:'<path d="m5 12 4 4L20 5"/>',trash:'<path d="M3 6h18M5 6l1 15h12l1-15M9 6V3h6v3M10 10v7m4-7v7"/>'};
+const icon=name=>`<svg class="icon ${name}" viewBox="0 0 24 24" aria-hidden="true">${icons[name]||icons.disc}</svg>`;
+document.querySelectorAll('[data-icon]').forEach(e=>e.innerHTML=icon(e.dataset.icon));
+const percent=n=>`${n}<span class="percent-sign">%</span>`;
+const time=n=>`${Math.floor(n/60).toString().padStart(2,'0')}:${Math.floor(n%60).toString().padStart(2,'0')}`;
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const artwork=t=>`<svg viewBox="${t.art.join(' ')}" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><image href="assets/reference.png" width="1696" height="928"/></svg>`;
+
+$('cover').innerHTML='<svg viewBox="88 139 450 472" preserveAspectRatio="xMidYMid slice"><image href="assets/reference.png" width="1696" height="928"/></svg>';
+const mode=new URLSearchParams(location.search).get('mode')||'shell';document.body.dataset.mode=mode;
+const on=mode==='on'||mode==='pressed-on';if(mode.startsWith('pressed'))document.body.classList.add('press-export');document.querySelectorAll('[aria-pressed]').forEach(e=>e.setAttribute('aria-pressed',on));document.querySelectorAll('[data-tab]').forEach(e=>e.setAttribute('aria-selected',on));
+$('play').innerHTML=icon(on?'pause':'play');$('play').classList.toggle('playing',on);
+$('mute').innerHTML=icon(on?'muted':'volume');
+$('bluetooth').classList.toggle('active',on);
+const ids=['favorite','shuffle','previous','play','next','repeat','mute','volume-knob'];
+const selectors=[...ids.map(x=>'#'+x),'[data-tab="queue"]','[data-tab="local"]','[data-tab="favorites"]','[data-tab="settings"]',...['normal','bass','space','retro'].map(x=>'[data-fx="'+x+'"]'),...['all','MP3','WAV'].map(x=>'[data-filter="'+x+'"]'),...['spectrum','wave','particles'].map(x=>'[data-viz="'+x+'"]')];
+// DOM-exported, visible geometry is consumed by the native asset generator.
+document.documentElement.dataset.geometry=JSON.stringify(selectors.map((s,i)=>{const r=document.querySelector(s).getBoundingClientRect();return {id:i,selector:s,x:Math.floor(r.x-5),y:Math.floor(r.y-5),w:Math.ceil(r.right+5)-Math.floor(r.x-5),h:Math.ceil(r.bottom+5)-Math.floor(r.y-5)}}));
+</script></body>
+</html>
