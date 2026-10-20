@@ -1,6 +1,6 @@
 # AirPods controls
 
-The AirPods settings page is an optional extension to the Bluetooth dialog. The main player layout stays unchanged. The entry is offered only when the connected Pico advertises AirPods-control capability. Stable Pico 0.9.3 does not advertise that capability; the experimental 0.9.4 candidate does. AirPods protocol and hardware support require separate validation; successful host UI tests do not prove that a particular headset supports a feature.
+The AirPods settings page is an optional extension to the Bluetooth dialog. The main player layout stays unchanged. The entry is offered only when the connected Pico advertises AirPods-control capability. Pico 0.9.3 does not advertise that capability; 0.9.4 and 0.9.5 do. Use 0.9.5 ([pico-bridge](../pico-bridge/README.md)): 0.9.4 reports an audio state Aurora does not accept, so playback stops about 2 s after it starts. AirPods protocol and hardware support require separate validation; successful host UI tests do not prove that a particular headset supports a feature.
 
 The page is a 940×560 modal with three equal battery cards, four equal listening-mode buttons, Auto pause, Connect, and Close. Modes are Off, Noise cancellation, Transparency, and Adaptive. Battery values are displayed only when the control channel is connected and the report is in the range 0–100; unknown, invalid, and disconnected values are `--`. Zero percent is a valid reading.
 

@@ -11,3 +11,7 @@ __pycache__/
 *.exe
 *.pdb
 *.lib
+/pico-bridge/native-idf/build/
+/pico-bridge/native-idf/sdkconfig
+/pico-bridge/native-idf/sdkconfig.old
+/pico-bridge/tests/library_media_generated.cpp

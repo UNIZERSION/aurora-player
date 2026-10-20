@@ -38,9 +38,11 @@ It does not change the license of those libraries.
   credentials).
 - **GPT (OpenAI Codex)** — co-author: built the foundations of the firmware, from
   the native port of the Aurora design to the audio engine, library, screen lock,
-  Bluetooth bridge and most features up to version 1.3.18.
+  Bluetooth bridge and most features up to version 1.3.18, and the Pico Bluetooth
+  firmware in `pico-bridge/` (0.1 to 0.9.5).
 - **Claude (Anthropic)** — co-author: the 1.3.18 audit, the fixes in 1.3.19 and
-  1.3.20, and the enclosure tap detector of 1.3.21.
+  1.3.20, the enclosure tap detector of 1.3.21, and the preparation of this
+  repository and its documentation.
 
 ## Third-party software and fonts
 
@@ -51,6 +53,15 @@ listed in [licenses/NOTICE.md](licenses/NOTICE.md), with copies of the license
 files under [licenses/](licenses). Components fetched by the ESP-IDF component
 manager (`managed_components/`) are not stored in this repository; the exact
 versions are pinned in [dependencies.lock](dependencies.lock).
+
+The Pico Bluetooth bridge in [pico-bridge/](pico-bridge/README.md) is covered by
+this project's license. It includes a modified copy of
+[ESP32-A2DP](https://github.com/pschatzmann/ESP32-A2DP) 1.8.11 by Phil Schatzmann
+(Apache License 2.0; changes listed in
+[pico-bridge/lib/ESP32-A2DP/MODIFICATIONS.md](pico-bridge/lib/ESP32-A2DP/MODIFICATIONS.md))
+and is built with ESP-IDF 5.5.2 for the ESP32. Its AirPods control code is
+implemented independently from the LibrePods protocol documentation. AirPods is
+a trademark of Apple Inc.; this project is not affiliated with Apple.
 
 **Interface fonts from Microsoft fonts.** To keep the original Aurora interface,
 `main/aurora_fonts.c` and `main/aurora_fx_label12.h` contain bitmap glyphs

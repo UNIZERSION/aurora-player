@@ -1,5 +1,7 @@
 # M5Stack Tab5 Keyboard A164: hardware integration
 
+The key map for the current version is in [KEYBOARD.md](KEYBOARD.md).
+
 The optional keyboard uses Ext.Port1: SDA GPIO0, SCL GPIO1, active-low interrupt GPIO50 and default address `0x6D`. Aurora reserves the other ESP32-P4 I2C controller (`1 - BSP_I2C_NUM`), so the existing internal GPIO31/32 touch, codec, battery and RTC bus is unchanged. The current build has BSP I2C1 and keyboard I2C0. Pico UART/I2S pins are separate.
 
 ## Protocol and compatibility
@@ -25,7 +27,7 @@ Firmware version (`0xFE`) and configured I2C address (`0xFF`) are read for ident
 
 - Independent priority-2 worker, 3072-byte stack and fixed 64-event FreeRTOS queue; no allocation per key/frame, no SD access and no LVGL/audio lock in the worker.
 - IRQ wakes the worker; a 20 ms fallback checks the FIFO and repeat timer. A 1 ms yield bounds IRQ storms.
-- I2C transaction timeout is 10 ms. An absent keyboard is optional and is probed once per 2 seconds. It may be attached after boot.
+- I2C transaction timeout is 50 ms (10 ms in 1.3.10). An absent keyboard is optional and is checked once per 2 seconds. It may be attached after boot. Since 1.3.19 the check is an ordinary read of `0xFE` (version and address `0x6D`) and `0x10` (mode), not `i2c_master_probe`, which in ESP-IDF 5.5.2 caused random restarts in 1.3.10–1.3.18.
 - I2C errors/unplug discard queued input and reset held/repeat state. Reconnection validates and reapplies the mode; no stale commands are replayed. Mode is checked once per second to recover after a module reset.
 - Local queue overflow discards backlog and repeat state. Input resumes with subsequent physical presses. Invalid HID usages cancel repeat; `FF FF` denotes no new event.
 - Printable and navigation/editing keys repeat after 450 ms, then every 60 ms. Enter, Escape, Tab and Ctrl/Alt shortcuts do not repeat. The UI additionally ignores inappropriate repeated playback shortcuts, including repeated Space outside text input.

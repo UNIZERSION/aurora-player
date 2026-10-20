@@ -72,7 +72,7 @@ Stability release on top of 1.3.18.
 - Separate durable PIN storage with write verification and access recovery if the partition entry is lost; the redraw area of a single PIN dot is 75 % smaller.
 - The visualiser and the dragon are no longer paused during continuous finger scrolling.
 - Settings -> Audio -> Reverb settings: Amount, Decay and Tone, with smooth changes and A/B storage on the SD card.
-- Bluetooth bridge: detection of a stalled stream and limited retries; compatible with Pico companion firmware 0.9.2/0.9.3. The AirPods panel requires the experimental Pico 0.9.4 and does not show unconfirmed states (see [docs/AIRPODS_CONTROLS.md](docs/AIRPODS_CONTROLS.md)). AAC is not sent to the Pico.
+- Bluetooth bridge: detection of a stalled stream and limited retries; compatible with Pico companion firmware 0.9.2/0.9.3. The AirPods panel requires the experimental Pico 0.9.4 and does not show unconfirmed states (see [docs/AIRPODS_CONTROLS.md](docs/AIRPODS_CONTROLS.md)); use Pico 0.9.5 instead, because 0.9.4 reports an audio state Aurora does not accept (see [pico-bridge](pico-bridge/README.md)). AAC is not sent to the Pico.
 - The main panel and the base volume level are unchanged.
 
 ## 1.3.13
@@ -112,7 +112,7 @@ Details: [docs/EQUALIZER-1.3.11.md](docs/EQUALIZER-1.3.11.md).
 - Up/Down and Enter operate lists; focus is independent of the playing track. A key press wakes the screen without also running a command. Touch still works and removes the focus frame.
 - The keyboard has its own I2C controller; its handling does not touch the SD card or block the internal codec/touch bus. On disconnect, pending keys and key repeat are cleared.
 
-Details: [docs/KEYBOARD-1.3.10.md](docs/KEYBOARD-1.3.10.md) and [docs/HARDWARE-KEYBOARD-1.3.10.md](docs/HARDWARE-KEYBOARD-1.3.10.md).
+Details: [docs/KEYBOARD.md](docs/KEYBOARD.md) (current key map) and [docs/HARDWARE-KEYBOARD-1.3.10.md](docs/HARDWARE-KEYBOARD-1.3.10.md).
 
 ## 1.3.9
 
